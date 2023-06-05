@@ -19,7 +19,7 @@ route.get('/', async (req, res) => {
 //api to get specific task by id
 route.get('/:id', async (req, res) => {
   const id = req.params.id;
-  const query = { _id: ObjectId(id) };
+  const query = { _id: new ObjectId(id) };
   const task = await tasksCollection.findOne(query);
   res.send(task);
 });
@@ -34,7 +34,7 @@ route.post('/', async (req, res) => {
 //api to add the completed field on task
 route.put('/completed/:id', async (req, res) => {
   const id = req.params.id;
-  const query = { _id: ObjectId(id) };
+  const query = { _id: new ObjectId(id) };
   const options = { upsert: true };
   const updatedDoc = {
     $set: {
@@ -49,7 +49,7 @@ route.put('/completed/:id', async (req, res) => {
 route.patch('/note/:id', async (req, res) => {
   const id = req.params.id;
   const taskNote = req.body.taskNote;
-  const query = { _id: ObjectId(id) }
+  const query = { _id: new ObjectId(id) }
   const updatedDoc = {
     $set: {
       taskNote: taskNote
@@ -64,7 +64,7 @@ route.patch('/:id', async (req, res) => {
   const id = req.params.id;
   const taskName = req.body.taskName
   const taskDescription = req.body.taskDescription
-  const query = { _id: ObjectId(id) }
+  const query = { _id: new ObjectId(id) }
   const updatedDoc = {
     $set: {
       taskName: taskName,
@@ -78,7 +78,7 @@ route.patch('/:id', async (req, res) => {
 //api to delete task
 route.delete('/:id', async (req, res) => {
   const id = req.params.id;
-  const query = { _id: ObjectId(id) };
+  const query = { _id: new ObjectId(id) };
   const result = await tasksCollection.deleteOne(query);
   res.send(result);
 });
